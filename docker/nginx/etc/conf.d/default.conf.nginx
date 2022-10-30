@@ -1,0 +1,26 @@
+server {
+    # Example PHP Nginx FPM config file
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    server_name _;
+
+    location ~ ^/api/(.*)$ {
+        alias /var/www/html/api/public;
+        try_files $1 $1/ @php;
+        index index.php;
+    }
+
+    location / {
+        root /var/www/html;
+    }
+
+    location @php {
+        fastcgi_split_path_info ^(/api)(/.*)$;
+        fastcgi_pass backend:9000;
+        fastcgi_index index.php;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME /var/www/html/api/public/index.php;
+        fastcgi_param REQUEST_URI $fastcgi_path_info;
+        fastcgi_read_timeout 900;
+    }
+}
