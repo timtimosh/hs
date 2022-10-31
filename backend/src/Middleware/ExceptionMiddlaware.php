@@ -31,7 +31,7 @@ final class ExceptionMiddlaware
         } catch (\Exception $exception) {
             $jsonMsg  = 'Something bed just happened. We are working on it';
             $code     = StatusCodeInterface::STATUS_INTERNAL_SERVER_ERROR;
-            $json     = $this->jsonFormat->error($request->getParsedBody(), $jsonMsg, $code);
+            $json     = $this->jsonFormat->error($request->getParsedBody() ?? [], $jsonMsg, $code);
             $response = new Response($code);
             $response->getBody()->write($json);
         }

@@ -86,6 +86,7 @@ export default {
       }
     },
     Submit (event) {
+      let self = this;
       event.preventDefault();
       this.submitting = true;
       this.axios.post('/api/user', this.form).then((response) => {
@@ -98,9 +99,13 @@ export default {
         this.alertMessage = null;
         this.$router.push('/signUpClientOk');
       }).catch(function (error) {
-        let errorStringtify = JSON.stringify(error);
-        console.log(errorStringtify);
-        this.alertMessage = 'ooops';
+        if (error.response) {
+          console.log(error.response.data);
+          self.alertMessage = error.response.data.message;
+        }
+        else{
+          self.alertMessage = 'Ooops. Something went wrong..';
+        }
       });
     }
   }

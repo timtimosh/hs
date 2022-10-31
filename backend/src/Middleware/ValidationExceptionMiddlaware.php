@@ -31,7 +31,7 @@ final class ValidationExceptionMiddlaware
         } catch (\HotsaleApi\Exception\ValidationException $validationException) {
             $jsonMsg  = implode("\n", $validationException->getValidationExceptions());
             $code     = StatusCodeInterface::STATUS_UNPROCESSABLE_ENTITY;
-            $json     = $this->jsonFormat->error($request->getParsedBody(), $jsonMsg, $code);
+            $json     = $this->jsonFormat->error($request->getParsedBody() ?? [], $jsonMsg, $code);
             $response = new Response($code);
             $response->getBody()->write($json);
         }
