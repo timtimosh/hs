@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Service;
+namespace HotsaleApi\Service;
 
 use JSend\InvalidJSendException;
 use JSend\JSendResponse;
@@ -26,7 +26,7 @@ final class JsendFormatter implements JsonFormatInterface
         return self::jsonMessage(JSendResponse::SUCCESS, $data);
     }
 
-    public function withError(
+    public function error(
         array  $data,
         string $errorMessage,
         int $errorCode

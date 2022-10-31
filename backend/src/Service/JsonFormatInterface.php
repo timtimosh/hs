@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Modules\Service;
+namespace HotsaleApi\Service;
 
 interface JsonFormatInterface
 {
     public function success(?array $data = null): string;
 
-    public function withError(
+    public function error(
         array  $data,
         string $errorMessage,
         int $errorCode
